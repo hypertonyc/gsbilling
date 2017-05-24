@@ -30,7 +30,7 @@ class ClientsController extends Controller
 
     public function getClients()
     {
-      $clients_coll = Client::with('devices')->get();
+      $clients_coll = Client::with('devices')->orderBy('name', 'asc')->get();
       $clients = array();
 
       foreach ($clients_coll as $value) {

@@ -15,8 +15,35 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+//Vue.component('example', require('./components/Example.vue'));
+//Vue.component('modal', require('./components/Modal.vue'));
+
+import axios from 'axios';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+      fillItem: {id: '', remote_id: '', name: '', price: '', balance: ''},
+      clients: [],
+      errors: []
+    },
+    methods: {
+      editClient(item, event) {
+        this.fillItem.id = item.id;
+        this.fillItem.remote_id = item.remote_id;
+        this.fillItem.name = item.name;
+        this.fillItem.price = item.price;
+        this.fillItem.balance = item.balance;
+        $('#edit-item').modal('show');
+      },
+    },
+    created() {
+      axios.get('/api/clients')
+      .then(response => {
+        this.clients = response.data.clients
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    }
 });
