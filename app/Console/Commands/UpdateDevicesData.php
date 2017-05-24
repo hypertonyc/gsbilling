@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\GlonassoftApi\ApiRequest;
+use Illuminate\Support\Facades\Log;
 
 class UpdateDevicesData extends Command
 {
@@ -47,7 +48,7 @@ class UpdateDevicesData extends Command
      */
     public function handle()
     {
-        $devices = $this->apiRequest->getActualData();
+        $devices = $this->apiRequest->getDevicesData();
 
         if (is_array($devices) && (count($devices) > 0)) {
 

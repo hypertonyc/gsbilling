@@ -1644,6 +1644,22 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1661,10 +1677,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+  data: function data() {
+    return {
+      clients: [],
+      errors: []
+    };
+  },
+
+  // Fetches posts when the component is created.
+  created: function created() {
+    var _this = this;
+
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/clients').then(function (response) {
+      _this.clients = response.data.clients;
+    }).catch(function (e) {
+      _this.errors.push(e);
+    });
+  }
 });
 
 /***/ }),
@@ -31746,21 +31778,27 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+    staticClass: "col-md-12"
+  }, _vm._l((_vm.clients), function(client) {
+    return _c('div', {
+      staticClass: "clients-info panel panel-default"
+    }, [_c('div', {
+      staticClass: "panel-heading"
+    }, [_c('strong', [_vm._v("Информация по клиенту " + _vm._s(client.name))])]), _vm._v(" "), _c('div', {
+      staticClass: "panel-body"
+    }, [_c('p', [_c('strong', [_vm._v("ИД:")]), _vm._v("  " + _vm._s(client.remote_id))]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("НАИМЕНОВАНИЕ:")]), _vm._v(" " + _vm._s(client.name))]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("ТАРИФ:")]), _vm._v(" " + _vm._s(client.price))]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("БАЛАНС:")]), _vm._v(" " + _vm._s(client.balance))]), _vm._v(" "), _c('table', {
+      staticClass: "table table-hover"
+    }, [_vm._m(0, true), _vm._v(" "), _vm._l((client.devices), function(device) {
+      return _c('tr', [_c('td', [_vm._v(_vm._s(device.imei))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(device.number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(device.last_date))])])
+    })], 2)])])
+  }))])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', [_c('th', [_vm._v("IMEI")]), _vm._v(" "), _c('th', [_vm._v("НОМЕР")]), _vm._v(" "), _c('th', [_vm._v("ПОСЛЕДНИЕ ДАННЫЕ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

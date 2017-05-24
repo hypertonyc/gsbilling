@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\GlonassoftApi\ApiRequest;
+use Illuminate\Support\Facades\Log;
 
 class ActualizeDevicesData extends Command
 {

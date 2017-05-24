@@ -40,10 +40,10 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Синхронизация<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('sync-new-request') }}">Новый запрос</a></li>
-                                <li><a href="{{ route('sync-logs') }}">Статистика</a></li>
+                                <li><a href="#">Новый запрос</a></li>
+                                <li><a href="#">Статистика</a></li>
                             </ul>
-                        </li>                        
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -82,7 +82,6 @@
     </div>
 
     <!-- Scripts -->
-    <script>var __tkn = '{{ Session::token() }}';</script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

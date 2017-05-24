@@ -23,24 +23,29 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()    
+    public function index()
     {
-        $clients_coll = Client::with('devices')->get();
-        $clients = array();
+        return view('clients');
+    }
 
-        foreach ($clients_coll as $value) {
-            $devices = $value->devices->sortByDesc('last_date');
+    public function getClients()
+    {
+      $clients_coll = Client::with('devices')->get();
+      $clients = array();
 
-            $clients[] = array(
-                'id' => $value->id,
-                'remote_id' => $value->remote_id,
-                'name' => $value->name,
-                'price' => $value->price,
-                'balance' => $value->balance,
-                'devices' => $devices
-            );
-        }
+      foreach ($clients_coll as $value) {
+          $devices = $value->devices->sortByDesc('last_date');
 
-        return view('clients', ['clients' => $clients]);
+          $clients[] = array(
+              'id' => $value->id,
+              'remote_id' => $value->remote_id,
+              'name' => $value->name,
+              'price' => $value->price,
+              'balance' => $value->balance,
+              'devices' => $devices
+          );
+      }
+
+      return response()->json(['clients' => $clients]);
     }
 }
