@@ -48,4 +48,18 @@ class ClientsController extends Controller
 
       return response()->json(['clients' => $clients]);
     }
+
+    public function updateClients($id, Request $request)
+    {
+      $client = Client::find($id);
+
+      $client->name = $request->name;
+      $client->price = $request->price;
+
+      $client->save();      
+
+      return response()->json(
+        array('result' => true)
+      );
+    }
 }

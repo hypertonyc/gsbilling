@@ -16,3 +16,4 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/clients', 'ClientsController@index')->name('clients');
 Route::get('/api/clients', 'ClientsController@getClients');
+Route::put('/api/clients/{id}', 'ClientsController@updateClients');

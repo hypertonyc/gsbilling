@@ -17,8 +17,8 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('remote_id')->unique();
             $table->string('name');
-            $table->decimal('price', 5, 2)->default(0.0);
-            $table->decimal('balance', 5, 2)->default(0.0);
+            $table->decimal('price', 7, 2)->default(0.0);
+            $table->decimal('balance', 10, 2)->default(0.0);
         });
     }
 
