@@ -14,6 +14,10 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/settings', 'SettingsController@index')->name('settings');
+Route::post('/settings', 'SettingsController@saveSettings');
+
 Route::get('/clients', 'ClientsController@index')->name('clients');
 Route::get('/api/clients', 'ClientsController@getClients');
 Route::put('/api/clients/{id}', 'ClientsController@updateClients');
