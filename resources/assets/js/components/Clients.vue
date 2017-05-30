@@ -24,7 +24,7 @@
                     <tr v-for="device of client.devices">
                         <td>{{device.imei}}</td>
                         <td>{{device.number}}</td>
-                        <td>{{device.last_date}}</td>
+                        <td>{{this.moment.unix(device.last_date).format('DD-MM-YYYY HH:mm:ss')}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -38,6 +38,7 @@
 
 <script>
   import axios from 'axios';
+  import moment from 'moment';
   import modalComponent from './Modal.vue';
 
   export default {

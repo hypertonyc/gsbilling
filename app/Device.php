@@ -6,10 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    public $timestamps = false;
-    
-    public function client()
-    {
-        return $this->belongsTo('App\Client');
-    }
+  /**
+   * The attributes that should be cast to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+      'last_date' => 'timestamp',
+  ];
+
+  public $timestamps = false;
+
+  public function client()
+  {
+      return $this->belongsTo('App\Client');
+  }
 }

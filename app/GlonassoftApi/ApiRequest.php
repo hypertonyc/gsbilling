@@ -6,11 +6,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Psr7\Response;
 
+use Carbon\Carbon;
+
 use Cache;
 
 class ApiRequest
 {
-	protected $token_expires = 1440; // one day
+	protected $token_expires = 720; // 12 hours
 
 	protected $devices_url = '';
 	protected $actual_data_url = '';
@@ -19,7 +21,7 @@ class ApiRequest
 
 		$this->devices_url = env('GLONASSOFT_API_URL', 'error_url') . 'vehicles_';
 		$this->actual_data_url = env('GLONASSOFT_API_URL', 'error_url') . 'monitoring/update_';
-		
+
 	}
 
 	public static function authorize() {
@@ -27,6 +29,8 @@ class ApiRequest
 		$api_url = env('GLONASSOFT_API_URL', 'error_url');
 		$api_login = env('GLONASSOFT_API_LOGIN', 'error_login');
 		$api_password = env('GLONASSOFT_API_PASSWORD', 'error_password');
+
+		$clock = Cache::get('settings.clock', 3);
 
 		$headers = ['accept' => 'application/json', 'accept-encoding' => 'gzip, deflate', 'accept-language' => 'en-US,en;q=0.8'];
 
@@ -39,8 +43,9 @@ class ApiRequest
 
 	        if(is_array($client_data) && array_key_exists('AuthId', $client_data)) {
 	        	$auth_token = $client_data['AuthId'];
+						Cache::forever('last_get_auth_token', Carbon::now($clock));
 	        }
-	        
+
 	    }
 	    return $auth_token;
 	}
@@ -53,6 +58,8 @@ class ApiRequest
 		    return ApiRequest::authorize();
 		});
 
+		$clock = Cache::get('settings.clock', 3);
+
 		$headers = ['accept' => 'application/json', 'accept-encoding' => 'gzip, deflate', 'accept-language' => 'en-US,en;q=0.8', 'X-Auth' => $auth_key];
 
 		$client = new Client();
@@ -63,8 +70,9 @@ class ApiRequest
 
 	        if(is_array($client_data)) {
 	        	$ret_data = $client_data;
+						Cache::forever('last_get_davices_data', Carbon::now($clock));
 	        }
-	        
+
 	    }
 	    return $ret_data;
 	}
@@ -77,6 +85,8 @@ class ApiRequest
 		    return ApiRequest::authorize();
 		});
 
+		$clock = Cache::get('settings.clock', 3);
+
 		$headers = ['accept' => 'application/json', 'accept-encoding' => 'gzip, deflate', 'accept-language' => 'en-US,en;q=0.8', 'X-Auth' => $auth_key];
 
 		$client = new Client();
@@ -87,8 +97,9 @@ class ApiRequest
 
 	        if(is_array($client_data)) {
 	        	$ret_data = $client_data;
+						Cache::forever('last_get_actual_data', Carbon::now($clock));
 	        }
-	        
+
 	    }
 	    return $ret_data;
 	}

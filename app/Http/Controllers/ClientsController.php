@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Client;
+use App\Device;
 
 class ClientsController extends Controller
 {
@@ -30,22 +31,10 @@ class ClientsController extends Controller
 
     public function getClients()
     {
-      $clients_coll = Client::with('devices')->orderBy('name', 'asc')->get();
-      $clients = array();
-
-      foreach ($clients_coll as $value) {
-          $devices = $value->devices->sortByDesc('last_date');
-
-          $clients[] = array(
-              'id' => $value->id,
-              'remote_id' => $value->remote_id,
-              'name' => $value->name,
-              'price' => $value->price,
-              'balance' => $value->balance,
-              'devices' => $devices
-          );
-      }
-
+      $clients = Client::with(['devices' => function($query) {
+        $query->orderBy('devices.last_date', 'desc');
+      }])->orderBy('name')->get();
+      
       return response()->json(['clients' => $clients]);
     }
 
@@ -56,7 +45,7 @@ class ClientsController extends Controller
       $client->name = $request->name;
       $client->price = $request->price;
 
-      $client->save();      
+      $client->save();
 
       return response()->json(
         array('result' => true)
