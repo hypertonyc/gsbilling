@@ -37,7 +37,7 @@ class UpdateDevicesData extends Command
     public function __construct(ApiRequest $apiRequest)
     {
         parent::__construct();
-		
+
 		$this->apiRequest = $apiRequest;
     }
 
@@ -66,9 +66,9 @@ class UpdateDevicesData extends Command
 
                 $devices_values_str = rtrim($devices_values_str, ", ");
                 $clients_values_str = rtrim($clients_values_str, ", ");
-                
+
                 try {
-                    \DB::insert("INSERT INTO devices (`remote_id`, `imei`, `number`, `remote_client_id`) VALUES $devices_values_str ON DUPLICATE KEY UPDATE `imei`=VALUES(`imei`), `number`=VALUES(`number`)");
+                    \DB::insert("INSERT INTO devices (`remote_id`, `imei`, `number`, `remote_client_id`) VALUES $devices_values_str ON DUPLICATE KEY UPDATE `imei`=VALUES(`imei`), `number`=VALUES(`number`), `remote_client_id`=VALUES(`remote_client_id`)");
                 } catch (\Exception $e) {
                     Log::error('Devices update error: ' . $e->getMessage());
                 }
