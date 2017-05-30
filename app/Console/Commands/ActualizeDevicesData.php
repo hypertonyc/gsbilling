@@ -50,21 +50,18 @@ class ActualizeDevicesData extends Command
      */
     public function handle()
     {
-        $clock = Cache::get('settings.clock', 3);
-
         $devices = $this->apiRequest->getActualData();
 
         if (is_array($devices) && (count($devices) > 0)) {
 
             $dev_collections = collect($devices);
 
-            $dev_collections->chunk(500)->each( function($items) use ($clock) {
+            $dev_collections->chunk(500)->each( function($items) {
 
                 $devices_values_str = '';
 
                 foreach($items as $item) {
                     $date = new \DateTime($item['ReceiveTime']);
-                    $date = $date->add(new \DateInterval('PT' . $clock . 'H'));
                     $devices_values_str .= '('.$item['VehicleID'].',"'.$date->format('Y-m-d H:i:s').'"), ';
                 }
 
