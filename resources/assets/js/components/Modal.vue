@@ -37,7 +37,7 @@
                 <button type="submit" class="btn btn-success">Сохранить</button>
               </div>
               <div class="col-sm-2">
-                <button type="submit" class="btn btn-default" v-on:click="cancelEdit">Отмена</button>
+                <button type="submit" class="btn btn-default" v-on:click.prevent="cancelEdit">Отмена</button>
               </div>
             </div>
           </form>

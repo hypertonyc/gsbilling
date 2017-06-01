@@ -37,6 +37,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('clients') }}">Клиенты</a></li>
+                        <li><a href="{{ route('transactions') }}">Транзакции</a></li>
                         <li><a href="{{ route('settings') }}">Настройки</a></li>
                         <!--
                         <li class="dropdown">
@@ -85,6 +86,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

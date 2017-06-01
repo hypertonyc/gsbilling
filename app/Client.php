@@ -12,4 +12,9 @@ class Client extends Model
     {
         return $this->hasMany('App\Device');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
 }

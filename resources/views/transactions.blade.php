@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<clients></clients>
+<transactions></transactions>
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/clients.js') }}"></script>
+<script src="{{ asset('js/transactions.js') }}"></script>
 @endsection

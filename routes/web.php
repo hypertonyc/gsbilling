@@ -21,3 +21,7 @@ Route::post('/settings', 'SettingsController@saveSettings');
 Route::get('/clients', 'ClientsController@index')->name('clients');
 Route::get('/api/clients', 'ClientsController@getClients');
 Route::put('/api/clients/{id}', 'ClientsController@updateClients');
+
+Route::get('/transactions', 'TransactionsController@index')->name('transactions');
+Route::get('/api/transactions', 'TransactionsController@getTransactions');
+Route::post('/api/transactions', 'TransactionsController@insertTransactions');

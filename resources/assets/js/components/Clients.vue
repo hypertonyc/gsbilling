@@ -69,8 +69,6 @@
         $('#edit-item').modal('show');
       },
       updateEditedClient(input) {
-        console.log(input);
-
         for(var idx = 0, l = this.clients.length; this.clients[idx] && this.clients[idx].id !== input.id;idx++);
         if(idx !== this.clients.length) {
           this.clients[idx].name = input.name;
