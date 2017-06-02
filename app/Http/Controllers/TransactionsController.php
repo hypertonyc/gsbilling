@@ -58,19 +58,33 @@ class TransactionsController extends Controller
    */
   public function insertTransactions(Request $request)
   {
+    $this->validate($request, [
+        'client_id' => 'required|integer',
+        'type' => 'required|integer',
+        'amount' => 'required|numeric',
+        'description' => 'required|string'
+    ]);
+
     DB::transaction(function () use ($request) {
       $transaction = new Transaction;
 
       $transaction->client_id = $request->client_id;
       $transaction->user_id = Auth::id();
-      $transaction->amount = $request->amount;
+
+      // deposit or withdraw
+      if($request->type == 0) {
+          $transaction->amount = $request->amount;
+      } else {
+        $transaction->amount = -1 * $request->amount;
+      }
+
       $transaction->description = $request->description;
 
       $transaction->save();
 
       $client = Client::find($request->client_id);
 
-      $client->balance += $request->amount;
+      $client->balance += $transaction->amount;
 
       $client->save();
     });

@@ -11,7 +11,7 @@
                 <p><strong>ИД:</strong> {{client.remote_id}}</p>
                 <p><strong>НАИМЕНОВАНИЕ:</strong> {{client.name}}</p>
                 <p><strong>ТАРИФ:</strong> {{client.price}}</p>
-                <p><strong>БАЛАНС:</strong> {{client.balance}}</p>
+                <p><strong>БАЛАНС:</strong> <span v-bind:class="{ positive: (client.balance > 0), negative: (client.balance < 0) }">{{client.balance}}</span></p>
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -24,7 +24,7 @@
                     <tr v-for="device of client.devices">
                         <td>{{device.imei}}</td>
                         <td>{{device.number}}</td>
-                        <td>{{this.moment.unix(device.last_date).format('DD-MM-YYYY HH:mm:ss')}}</td>
+                        <td>{{device.last_date}}</td>                        
                     </tr>
                   </tbody>
                 </table>

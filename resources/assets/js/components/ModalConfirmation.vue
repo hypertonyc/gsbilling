@@ -17,7 +17,8 @@
             <div class="form-group">
               <label for="type" class="col-sm-4 control-label">Тип транзакции:</label>
               <div class="col-sm-8">
-                <p>{{fillItem.type}}</p>
+                <p v-if="fillItem.type == 0">Пополнение</p>
+                <p v-else>Снятие</p>
               </div>
             </div>
             <div class="form-group">

@@ -34,12 +34,17 @@ class ClientsController extends Controller
       $clients = Client::with(['devices' => function($query) {
         $query->orderBy('devices.last_date', 'desc');
       }])->orderBy('name')->get();
-      
+
       return response()->json(['clients' => $clients]);
     }
 
     public function updateClients($id, Request $request)
     {
+      $this->validate($request, [
+          'name' => 'required|string',
+          'price' => 'required|numeric'
+      ]);
+
       $client = Client::find($id);
 
       $client->name = $request->name;

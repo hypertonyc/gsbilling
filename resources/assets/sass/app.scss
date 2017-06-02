@@ -10,3 +10,15 @@
 
 // Toastr
 @import "node_modules/toastr/toastr.scss";
+
+tr.withdraw {
+  background: #efd4d4;
+}
+
+span.positive {
+  color: #009000;
+}
+
+span.negative {
+  color: #900000;
+}

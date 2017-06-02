@@ -17,13 +17,13 @@
                 <div class="form-group">
                   <div class="radio col-sm-offset-4 col-sm-4">
                     <label>
-                      <input type="radio" name="transaction-type" id="deposit" value="deposit" v-model="fillItem.type" checked>
+                      <input type="radio" name="transaction-type" id="deposit" value="0" v-model="fillItem.type" checked>
                       Пополнить
                     </label>
                   </div>
                   <div class="radio col-sm-offset-4 col-sm-4">
                     <label>
-                      <input type="radio" name="transaction-type" id="withdraw" value="withdraw" v-model="fillItem.type">
+                      <input type="radio" name="transaction-type" id="withdraw" value="1" v-model="fillItem.type">
                       Снять
                     </label>
                   </div>
@@ -62,7 +62,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="transaction of transactions">
+                  <tr v-for="transaction of transactions" v-bind:class="{ withdraw: (transaction.amount < 0) }">
                     <td>{{transaction.created_at}}</td>
                     <td>{{clients[transaction.client_id].name}}</td>
                     <td>{{transaction.amount}}</td>
