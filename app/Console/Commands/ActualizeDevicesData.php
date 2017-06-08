@@ -6,8 +6,6 @@ use Illuminate\Console\Command;
 use App\GlonassoftApi\ApiRequest;
 use Illuminate\Support\Facades\Log;
 
-use Cache;
-
 class ActualizeDevicesData extends Command
 {
     /**

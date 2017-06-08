@@ -21,6 +21,7 @@ class CreateDevicesTable extends Migration
             $table->string('imei')->default('');
             $table->string('number')->default('');
             $table->timestamp('last_date')->nullable();
+            $table->boolean('is_free')->default(false);
             $table->foreign('client_id')->references('id')->on('clients');
         });
     }

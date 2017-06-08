@@ -67,7 +67,8 @@
                     <td>{{clients[transaction.client_id].name}}</td>
                     <td>{{transaction.amount}}</td>
                     <td>{{transaction.description}}</td>
-                    <td>{{users[transaction.user_id].name}}</td>
+                    <td v-if="transaction.user_id">{{users[transaction.user_id].name}}</td>
+                    <td v-else>Автомат</td>                    
                   </tr>
                 </tbody>
               </table>

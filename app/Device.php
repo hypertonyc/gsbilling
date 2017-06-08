@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
+use Cache;
 
 class Device extends Model
 {
@@ -18,7 +19,8 @@ class Device extends Model
   public function getLastDateAttribute($date)
   {
     if(isset($date)) {
-      return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i:s');
+      $clock = Cache::get('settings.clock', 3);
+      return Carbon::createFromFormat('Y-m-d H:i:s', $date)->addHours($clock)->format('d-m-Y H:i:s');
     } else {
       return 'Нет данных';
     }

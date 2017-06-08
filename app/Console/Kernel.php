@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\UpdateDevicesData::class,
-        Commands\ActualizeDevicesData::class
+        Commands\ActualizeDevicesData::class,
+        Commands\ExecuteBilling::class
     ];
 
     /**
@@ -26,7 +27,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
       $schedule->command('devices:update')->hourly();
-      $schedule->command('devices:actualize')->everyMinute();      
+      $schedule->command('devices:actualize')->everyMinute();
+      $schedule->command('billing:execute')->monthlyOn(1, '00:00');
     }
 
     /**
