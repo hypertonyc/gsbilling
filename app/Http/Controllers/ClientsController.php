@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Client;
 use App\Device;
 
@@ -55,5 +57,18 @@ class ClientsController extends Controller
       return response()->json(
         array('result' => true)
       );
+    }
+
+    public function updateDevices(Request $request)
+    {
+      $devices = $request->devices;
+
+      DB::transaction(function () use ($devices) {
+        foreach ($devices as $device) {
+          $dbdevice = Device::find($device['id_device']);
+          $dbdevice->is_free = $device['is_free'];
+          $dbdevice->save();
+        }
+      });
     }
 }

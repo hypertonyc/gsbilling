@@ -11,6 +11,10 @@
 // Toastr
 @import "node_modules/toastr/toastr.scss";
 
+table.devices-table tr.isfree {
+  background: #88ff88;
+}
+
 tr.withdraw {
   background: #efd4d4;
 }
