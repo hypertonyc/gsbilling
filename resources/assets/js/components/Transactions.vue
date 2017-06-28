@@ -64,11 +64,11 @@
                 <tbody>
                   <tr v-for="transaction of transactions" v-bind:class="{ withdraw: (transaction.amount < 0) }">
                     <td>{{transaction.created_at}}</td>
-                    <td>{{clients[transaction.client_id].name}}</td>
+                    <td>{{clientNameByID(transaction.client_id)}}</td>
                     <td>{{transaction.amount}}</td>
                     <td>{{transaction.description}}</td>
-                    <td v-if="transaction.user_id">{{users[transaction.user_id].name}}</td>
-                    <td v-else>Автомат</td>                    
+                    <td v-if="transaction.user_id">{{userNameByID(transaction.user_id)}}</td>
+                    <td v-else>Автомат</td>
                   </tr>
                 </tbody>
               </table>
@@ -100,10 +100,11 @@
       getTransactions() {
         axios.get('/api/transactions')
         .then(response => {
-          var transactions = [];
           this.clients = response.data.clients_with_transactions.clients;
           this.transactions = response.data.clients_with_transactions.transactions;
           this.users = response.data.clients_with_transactions.users;
+
+          this.clients.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
         })
         .catch(e => {
           this.errors.push(e)
@@ -122,7 +123,29 @@
         //   this.clients[idx].price = input.price;
         // }
 
+      },
+      clientNameByID(val) {
+        var i;
+        for(i = 0; i < this.clients.length; i++) {
+          if (this.clients[i].id == val) {
+            return this.clients[i].name;
+          }
+        }
+        return '';
+      },
+      userNameByID(val) {
+        var i;
+        for(i = 0; i < this.users.length; i++) {
+          if (this.users[i].id == val) {
+            return this.users[i].name;
+          }
+        }
+        return '';
       }
+    },
+
+    computed: {
+
     },
 
     components: {

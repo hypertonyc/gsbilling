@@ -40,9 +40,9 @@ class TransactionsController extends Controller
    */
   public function getTransactions()
   {
-    $clients = Client::orderBy('name')->get()->keyBy('id');
-    $transactions = Transaction::orderBy('created_at', 'desc')->get()->keyBy('id');
-    $users = User::all()->keyBy('id');
+    $clients = Client::orderBy('name')->get();
+    $transactions = Transaction::orderBy('created_at', 'desc')->get();
+    $users = User::all();
 
     return response()->json(['clients_with_transactions' => array(
       'clients' => $clients,
