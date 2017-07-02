@@ -12,8 +12,8 @@ use App\Client;
 use App\Transaction;
 
 use App\Billing;
-use App\BillingClient;
-use App\BillingDevice;
+use App\Billingclient;
+use App\Billingdevice;
 
 use Carbon\Carbon;
 
@@ -128,7 +128,7 @@ class ExecuteBilling extends Command
           }
         });
 
-        // Save statistics        
+        // Save statistics
         $billing->save();
       });
     }
