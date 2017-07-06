@@ -38,6 +38,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('clients') }}">Клиенты</a></li>
                         <li><a href="{{ route('transactions') }}">Транзакции</a></li>
+                        <li><a href="{{ route('billings') }}">Списания</a></li>
                         <li><a href="{{ route('settings') }}">Настройки</a></li>
                         <!--
                         <li class="dropdown">

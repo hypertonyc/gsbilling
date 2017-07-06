@@ -26,3 +26,6 @@ Route::put('/api/devices', 'ClientsController@updateDevices');
 Route::get('/transactions', 'TransactionsController@index')->name('transactions');
 Route::get('/api/transactions', 'TransactionsController@getTransactions');
 Route::post('/api/transactions', 'TransactionsController@insertTransactions');
+
+Route::get('/billings', 'BillingsController@index')->name('billings');
+Route::get('/billings/{id}', 'BillingsController@showBilling')->name('billing');
