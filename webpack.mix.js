@@ -13,5 +13,4 @@ const { mix } = require('laravel-mix');
 
 mix.js('resources/assets/js/clients.js', 'public/js')
   .js('resources/assets/js/transactions.js', 'public/js')
-  .js('resources/assets/js/billing.js', 'public/js')
   .sass('resources/assets/sass/app.scss', 'public/css');

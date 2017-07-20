@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Billing;
+use App\Billingclient;
+use App\Billingdevice;
 
 class BillingsController extends Controller
 {
@@ -36,7 +38,18 @@ class BillingsController extends Controller
    */
   public function showBilling($id)
   {
-      $billing = Billing::find($id);
+      $billing = Billing::with('billingclients', 'billingclients.billingdevices')->find($id);
+
+      foreach ($billing->billingclients as $key => $client) {
+        $billing->billingclients[$key]->devices_count = $client->billingdevices->count();
+
+        $billing->billingclients[$key]->active_devices_count = $client->billingdevices->filter(function ($value, $key) {
+          return $value->amount > 0;
+        })->count();
+
+        $billing->billingclients[$key]->billing_amount = $client->billingdevices->sum('amount');
+      }
+
       return view('billing', ['billing' => $billing]);
   }
 }
