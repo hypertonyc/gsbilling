@@ -50,6 +50,8 @@ class ActualizeDevicesData extends Command
     {
         $devices = $this->apiRequest->getActualData();
 
+        $devices = $devices['points'];
+
         if (is_array($devices) && (count($devices) > 0)) {
 
             $dev_collections = collect($devices);
@@ -60,7 +62,9 @@ class ActualizeDevicesData extends Command
 
                 foreach($items as $item) {
                     $date = new \DateTime($item['ReceiveTime']);
-                    $devices_values_str .= '('.$item['VehicleID'].',"'.$date->format('Y-m-d H:i:s').'"), ';
+                    if ($date->getTimestamp() > 0) {
+                      $devices_values_str .= '('.$item['VehicleID'].',"'.$date->format('Y-m-d H:i:s').'"), ';
+                    }
                 }
 
                 $devices_values_str = rtrim($devices_values_str, ", ");

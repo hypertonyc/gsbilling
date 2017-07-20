@@ -20,7 +20,7 @@ class ApiRequest
 	public function __construct() {
 
 		$this->devices_url = env('GLONASSOFT_API_URL', 'error_url') . 'vehicles_';
-		$this->actual_data_url = env('GLONASSOFT_API_URL', 'error_url') . 'monitoring/update_';
+		$this->actual_data_url = env('GLONASSOFT_API_URL', 'error_url') . 'monitoringVehicles/update_';
 
 	}
 
