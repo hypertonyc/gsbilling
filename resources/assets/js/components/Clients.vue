@@ -26,12 +26,13 @@
                         <td>{{device.imei}}</td>
                         <td>{{device.number}}</td>
                         <td>{{device.last_date}}</td>
-                        <td v-if="device.is_free" v-on:click.prevent="onIsFreeClick(client, device)"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
-                        <td v-else v-on:click.prevent="onIsFreeClick(client, device)"><span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span></td>
+                        <td v-on:click.prevent="onIsFreeClick(client, device)">
+                          <span class="glyphicon" aria-hidden="true" v-bind="{'glyphicon-check' : device.is_free, 'glyphicon-unchecked' : !device.is_free}"></span>
+                        </td>                        
                     </tr>
                   </tbody>
                 </table>
-                <div class="text-right" v-if="client.hasChanges">
+                <div class="text-right" v-show="client.hasChanges">
                   <button class="btn btn-success" v-on:click.prevent="onIsFreeSaveClick(client)"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>Сохранить</button>
                 </div>
             </div>
